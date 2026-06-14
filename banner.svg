@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 220" role="img" aria-label="BeastForge — the open template, built for Claude Code.">
+  <rect width="1200" height="220" fill="#0a0c0f"/>
+  <rect x="0" y="217" width="1200" height="3" fill="#ff463a"/>
+  <g transform="translate(135 108) scale(3.2) translate(-32 -32)">
+    <g fill="#eef2f5">
+      <path d="M32 27 C28 18 33 7 45 8 C39 13 37 19 36 25 C35 27 33 27 32 27 Z"/>
+      <g transform="rotate(120 32 32)"><path d="M32 27 C28 18 33 7 45 8 C39 13 37 19 36 25 C35 27 33 27 32 27 Z"/></g>
+      <g transform="rotate(240 32 32)"><path d="M32 27 C28 18 33 7 45 8 C39 13 37 19 36 25 C35 27 33 27 32 27 Z"/></g>
+      <path fill-rule="evenodd" d="M25.6 32 a6.4 6.4 0 1 0 12.8 0 a6.4 6.4 0 1 0 -12.8 0 Z M34.6 32 a2.6 2.6 0 1 0 -5.2 0 a2.6 2.6 0 1 0 5.2 0 Z"/>
+    </g>
+    <circle cx="32" cy="32" r="2.4" fill="#ff463a"/>
+  </g>
+  <text x="275" y="72" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="17" fill="#98a0aa" letter-spacing="0.5">verifiable agentic engineering</text>
+  <text x="273" y="132" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="52" font-weight="700" fill="#eef2f5">BeastForge</text>
+  <text x="275" y="170" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-style="italic" fill="#ff463a">the open template, built for Claude Code</text>
+</svg>

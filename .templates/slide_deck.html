@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<!--
+  SkyBeast slide-deck TEMPLATE (reference). Self-contained: no dependencies,
+  no network, no tracking; opens offline. This is the canonical "SkyBeast
+  deck theme" — copy this file's <style> block + the <script> at the bottom
+  into any deck (e.g. one you generate for your own topic) and it will match the
+  site and embed cleanly. Replace the <section class="slide …"> blocks below
+  with your own content; everything else stays.
+
+  FIVE LAYOUTS + ONE PRIMITIVE (a deliberately small kit):
+    <section class="slide slide--title">  opener — centred mark + title
+    <section class="slide">                statement (default) — centred column
+    <section class="slide slide--split">   two 50/50 full-height columns:
+        <div class="col"><div class="wrap"> …text… </div></div>
+        <div class="col col--media"><div class="wrap"> …img/SVG/chart… </div></div>
+      (stacks under 34rem; stays side-by-side in the embedded preview)
+    <section class="slide slide--full">    wide band for a big visual / line
+    <section class="slide slide--photo">   full-bleed image + optional caption
+        <img src="…" alt="…">
+        <div class="caption"> …kicker / h2 / sub… </div>  (omit for silent visual)
+    PRIMITIVE: <pre><code>…</code></pre>   code/config block (any layout's .wrap)
+
+  GRAPHICS. Need a diagram beside your text? See templates/deck_svg_kit.html —
+  ready in-theme SVG primitives (flow-arrows, stack, before/after, big-stat,
+  node-graph, checklist, bars, cycle, funnel, annotation-callout) to drop into a
+  slide--split .col--media (or invent your own in the same idiom). Images and
+  R-generated charts embed too — convert PDFs to SVG/PNG for an offline deck;
+  see .claude/commands/deck.md (external-graphics route).
+
+  EMBED on a post/portfolio page: drop this file as deck.html in the item's
+  folder, then in the markdown body:  @deck deck.html "Title"   (add `wide`
+  to break out). The site shows it as a cycling preview (chrome hidden,
+  scaled to fit); a click opens this file full-screen, fully navigable.
+  Nav: ↓/↑ Space PgDn/PgUp Home/End, or scroll.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SkyBeast slide-deck template</title>
+<!-- Embedded favicon (SkyBeast mark) as a data-URI — self-contained, so the
+     deck shows the mark in its browser tab even opened standalone or copied
+     into another project. To refresh: base64 -w0 public/favicon.svg -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJTa3lCZWFzdCI+CiAgPHJlY3QgeD0iMC41IiB5PSIwLjUiIHdpZHRoPSI2MyIgaGVpZ2h0PSI2MyIgcng9IjE0IiBmaWxsPSIjMGUxMjE3IiBzdHJva2U9InJnYmEoMTk1LDIwMCwyMDcsMC4xOCkiIHN0cm9rZS13aWR0aD0iMSIvPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYuNCA2LjQpIHNjYWxlKDAuODApIj4KICAgIDxnIGZpbGw9IiNlZWYyZjUiPgogICAgICA8cGF0aCBkPSJNMzIgMjcgQzI4IDE4IDMzIDcgNDUgOCBDMzkgMTMgMzcgMTkgMzYgMjUgQzM1IDI3IDMzIDI3IDMyIDI3IFoiLz4KICAgICAgPGcgdHJhbnNmb3JtPSJyb3RhdGUoMTIwIDMyIDMyKSI+PHBhdGggZD0iTTMyIDI3IEMyOCAxOCAzMyA3IDQ1IDggQzM5IDEzIDM3IDE5IDM2IDI1IEMzNSAyNyAzMyAyNyAzMiAyNyBaIi8+PC9nPgogICAgICA8ZyB0cmFuc2Zvcm09InJvdGF0ZSgyNDAgMzIgMzIpIj48cGF0aCBkPSJNMzIgMjcgQzI4IDE4IDMzIDcgNDUgOCBDMzkgMTMgMzcgMTkgMzYgMjUgQzM1IDI3IDMzIDI3IDMyIDI3IFoiLz48L2c+CiAgICAgIDxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTI1LjYgMzIgYTYuNCA2LjQgMCAxIDAgMTIuOCAwIGE2LjQgNi40IDAgMSAwIC0xMi44IDAgWiBNMzQuNiAzMiBhMi42IDIuNiAwIDEgMCAtNS4yIDAgYTIuNiAyLjYgMCAxIDAgNS4yIDAgWiIvPgogICAgPC9nPgogICAgPGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMi40IiBmaWxsPSIjZmY0NjNhIi8+CiAgPC9nPgo8L3N2Zz4K">
+<style>
+  :root{
+    --bg:#0a0c0f; --ink:#eef2f5; --soft:#98a0aa; --line:rgba(195,200,207,.16);
+    --accent:#ff463a; --tok:#c3c8cf; --maxw:46rem;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{height:100%}
+  body{background:var(--bg); color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; line-height:1.5}
+  .deck{height:100vh; overflow-y:scroll; scroll-snap-type:y mandatory; scroll-behavior:smooth}
+  .slide{min-height:100vh; scroll-snap-align:center; scroll-snap-stop:always;
+    display:flex; flex-direction:column; justify-content:center; padding:9vh 7vw; position:relative}
+  .wrap{max-width:var(--maxw); width:100%; margin-inline:auto}   /* centred column */
+  .kicker{font-size:.82rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:1.4rem; font-weight:600}
+  .kicker::before{content:"▸ "; color:var(--accent)}
+  h1{font-size:clamp(2.4rem,6.4vw,4.6rem); line-height:1.05; letter-spacing:-.022em; font-weight:680}
+  h2{font-size:clamp(1.9rem,4.6vw,3.2rem); line-height:1.1; letter-spacing:-.02em; font-weight:660}
+  .sub{margin-top:1.5rem; font-size:clamp(1.05rem,1.7vw,1.45rem); color:var(--soft); max-width:38rem; font-weight:420}
+  ul{list-style:none; margin-top:2rem; max-width:40rem}
+  li{font-size:clamp(1.05rem,1.7vw,1.4rem); padding:.72rem 0; border-top:1px solid var(--line); color:var(--ink)}
+  li:first-child{border-top:0}
+  li b{font-weight:600}
+  .tok{font-family:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace; color:var(--tok); font-size:.92em; font-weight:600; letter-spacing:-.01em}
+  em{font-style:italic; color:var(--ink)}
+  .title h1{font-size:clamp(3rem,9vw,6.2rem)}
+  .title .sub{font-size:clamp(1.15rem,2.2vw,1.6rem); margin-top:1.8rem}
+  .mark{width:clamp(2.6rem,5vw,3.6rem); height:auto; margin-bottom:1.6rem; color:var(--accent); filter:drop-shadow(0 0 .6rem rgba(255,70,58,.4))}
+
+  /* ── layouts ──────────────────────────────────────────────────────────
+     .slide          statement (default), centred · .slide--title opener
+     .slide--split   two 50/50 full-height columns (.col / .col--media)
+     .slide--full    wide band for a big visual or a large line          */
+  .slide--split{ display:grid; grid-template-columns:1fr 1fr; padding:0 }
+  .slide--split .col{ display:flex; flex-direction:column; justify-content:center; padding:9vh 6vw; min-width:0 }
+  .slide--split .col .wrap{ max-width:34rem }
+  .slide--split .col--media{ align-items:center; background:rgba(195,200,207,.04); border-inline-start:1px solid var(--line) }
+  .slide--split .col--media .wrap{ display:flex; flex-direction:column; align-items:center; gap:1rem }
+  .slide--split .col--media img, .slide--split .col--media svg{ width:100%; max-width:22rem; height:auto; max-height:58vh }
+  .slide--full .wrap{ max-width:72rem }
+  .media-note{ font-family:ui-monospace,Menlo,Consolas,monospace; font-size:.78rem; letter-spacing:.06em; color:var(--soft); text-align:center }
+
+  /* Code block — subtle surface, hairline border, monospace; scrolls on overflow */
+  pre{
+    margin:1.4rem 0; padding:1rem 1.2rem;
+    background:rgba(195,200,207,.06); border:1px solid var(--line); border-radius:6px;
+    font-family:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace;
+    font-size:clamp(.85rem,1.3vw,1.05rem); line-height:1.55; color:var(--tok);
+    overflow-x:auto; white-space:pre;
+  }
+  pre code{ background:transparent; color:inherit; font:inherit }
+
+  /* Full-bleed photo slide — img fills 100vh; optional .caption overlay bottom-left */
+  .slide--photo{ padding:0; overflow:hidden }
+  .slide--photo img,
+  .slide--photo .photo-placeholder{ width:100%; height:100vh; object-fit:cover; display:block }
+  .slide--photo .photo-placeholder{
+    background:
+      radial-gradient(circle at 28% 28%, rgba(255,70,58,.18), transparent 55%),
+      linear-gradient(135deg, #14191f, #0a0c0f);
+  }
+  .slide--photo .caption{
+    position:absolute; bottom:8vh; left:6vw; max-width:38rem;
+    padding:1.2rem 1.5rem;
+    background:rgba(10,12,15,.82); border-inline-start:3px solid var(--accent);
+    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  }
+  .slide--photo .caption .kicker{ margin-bottom:.8rem }
+  .slide--photo .caption h2{ font-size:clamp(1.4rem,3.4vw,2.4rem); line-height:1.15 }
+  .slide--photo .caption .sub{ margin-top:.6rem; font-size:clamp(.95rem,1.5vw,1.25rem); max-width:none }
+
+  @media (max-width:34rem){
+    .slide--split{ grid-template-columns:1fr }
+    .slide--split .col{ padding:7vh 7vw }
+    .slide--split .col--media{ border-inline-start:0; border-block-start:1px solid var(--line) }
+  }
+
+  .counter{position:fixed; bottom:1.4rem; right:1.6rem; font-size:.8rem; color:var(--soft); letter-spacing:.06em; font-variant-numeric:tabular-nums; z-index:5}
+  .progress{position:fixed; top:0; left:0; height:2px; background:var(--accent); width:0; transition:width .3s ease; z-index:5}
+  .hint{position:fixed; bottom:1.4rem; left:1.6rem; font-size:.8rem; color:var(--soft); letter-spacing:.04em; z-index:5; transition:opacity .5s ease}
+  .slide .wrap>*{opacity:0; transform:translateY(14px); transition:opacity .7s ease, transform .7s ease}
+  .slide.in .wrap>*{opacity:1; transform:none}
+  .slide .wrap>*:nth-child(2){transition-delay:.08s}
+  .slide .wrap>*:nth-child(3){transition-delay:.16s}
+
+  /* preview (embedded): no chrome; sized by iframe width so a slide fits any
+     embed; split stacks (legible + the vw fonts fit a full-width column) */
+  body.preview .counter, body.preview .progress, body.preview .hint{display:none}
+  body.preview .deck{overflow:hidden; scroll-snap-type:none}
+  body.preview h1{font-size:6.6vw}
+  body.preview .title h1{font-size:9vw}
+  body.preview h2{font-size:4.4vw}
+  body.preview .kicker{font-size:1.8vw; margin-bottom:2vw}
+  body.preview .sub{font-size:2.45vw; margin-top:2.2vw; max-width:80%}
+  body.preview .title .sub{font-size:2.9vw}
+  body.preview ul{margin-top:2.6vw; max-width:88%}
+  body.preview li{font-size:2.4vw; padding:1vw 0}
+  body.preview .mark{width:5vw; margin-bottom:2.2vw}
+  body.preview .media-note{font-size:1.7vw}
+  /* In the (wide, short) 16:9 preview, keep split SIDE-BY-SIDE at small
+     fonts — fits the frame, shows the real shape, and the unreadably-small
+     text is the nudge to Open Deck. Higher specificity beats the 34rem
+     stack, so it stays side-by-side even in a narrow mobile embed. The
+     full-screen deck still stacks on a real phone (full height to read). */
+  body.preview .slide--split{ grid-template-columns:1fr 1fr }
+  body.preview .slide--split .col{ padding:4vh 3.5vw }
+  body.preview .slide--split .col .wrap{ max-width:100% }
+  body.preview .slide--split .kicker{ font-size:1.5vw; margin-bottom:1.1vw }
+  body.preview .slide--split h2{ font-size:2.9vw; line-height:1.12 }
+  body.preview .slide--split .sub{ font-size:1.8vw; margin-top:1.3vw; max-width:100% }
+  body.preview .slide--split .col--media{ border-inline-start:1px solid var(--line) }
+  body.preview .slide--split .col--media img,
+  body.preview .slide--split .col--media svg{ max-width:60%; max-height:42vh }
+  body.preview .slide--split .media-note{ font-size:1.4vw }
+  body.preview pre{ font-size:1.3vw; padding:.9vw 1.1vw; margin:1.1vw 0; line-height:1.5 }
+  body.preview .slide--photo .caption{ bottom:6vh; left:4vw; max-width:60%; padding:1.5vw 2vw }
+  body.preview .slide--photo .caption h2{ font-size:3.2vw; line-height:1.15 }
+  body.preview .slide--photo .caption .sub{ font-size:1.8vw; margin-top:1vw }
+  body.preview .slide--photo .caption .kicker{ font-size:1.4vw; margin-bottom:1vw }
+
+  @media (prefers-reduced-motion:reduce){
+    .deck{scroll-behavior:auto}
+    .slide .wrap>*{opacity:1; transform:none; transition:none}
+    .progress{transition:none}
+  }
+  @media print{
+    .deck{height:auto; overflow:visible}
+    .slide{min-height:auto; page-break-after:always; padding:8vh 6vw}
+    .slide--split{ grid-template-columns:1fr 1fr }
+    .slide--photo img, .slide--photo .photo-placeholder{ height:auto; max-height:100vh }
+    .slide--photo .caption{ position:static; background:none; backdrop-filter:none; -webkit-backdrop-filter:none; border:none; padding:0; margin-top:1rem; max-width:none }
+    pre{ background:#f4f4f4; color:#222; border-color:#ccc }
+    .counter,.progress,.hint{display:none}
+    .slide .wrap>*{opacity:1; transform:none}
+    body{background:#fff; color:#111}
+  }
+</style>
+</head>
+<body>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="deck" id="deck" tabindex="0" aria-label="Presentation: SkyBeast slide-deck template">
+
+  <!-- LAYOUT: title -->
+  <section class="slide title slide--title" aria-label="Title">
+    <div class="wrap">
+      <svg class="mark" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true">
+        <path d="M32 27 C28 18 33 7 45 8 C39 13 37 19 36 25 C35 27 33 27 32 27 Z"/>
+        <g transform="rotate(120 32 32)"><path d="M32 27 C28 18 33 7 45 8 C39 13 37 19 36 25 C35 27 33 27 32 27 Z"/></g>
+        <g transform="rotate(240 32 32)"><path d="M32 27 C28 18 33 7 45 8 C39 13 37 19 36 25 C35 27 33 27 32 27 Z"/></g>
+        <path fill-rule="evenodd" d="M25.6 32 a6.4 6.4 0 1 0 12.8 0 a6.4 6.4 0 1 0 -12.8 0 Z M34.6 32 a2.6 2.6 0 1 0 -5.2 0 a2.6 2.6 0 1 0 5.2 0 Z"/>
+      </svg>
+      <h1>A slide-deck template.</h1>
+      <p class="sub">SkyBeast theme — five layouts + a code-block primitive, self-contained, offline, embeddable. Replace these slides with your own.</p>
+    </div>
+  </section>
+
+  <!-- LAYOUT: statement (default, no class) — centred column -->
+  <section class="slide" aria-label="Default layout">
+    <div class="wrap">
+      <p class="kicker">Default · statement</p>
+      <h2>A centred column.</h2>
+      <p class="sub">No layout class needed — best for a statement or a short list. It sits centred, so it reads balanced at any width. The kit:</p>
+      <ul>
+        <li><span class="tok">slide--title</span> — the opener</li>
+        <li><span class="tok">slide</span> — a centred statement (this one)</li>
+        <li><span class="tok">slide--split</span> — text beside a graphic</li>
+        <li><span class="tok">slide--full</span> — a wide band for a big visual</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- LAYOUT: split — text | media, 50/50, stacks on mobile/preview -->
+  <section class="slide slide--split" aria-label="Split layout">
+    <div class="col">
+      <div class="wrap">
+        <p class="kicker">slide--split</p>
+        <h2>Text one side, a graphic the other.</h2>
+        <p class="sub">Two full-height 50/50 columns — put your point on the left and an image, inline SVG, or chart on the right. On mobile (and in the embedded preview) they stack.</p>
+      </div>
+    </div>
+    <div class="col col--media">
+      <div class="wrap">
+        <svg viewBox="0 0 64 64" fill="#c3c8cf" aria-hidden="true">
+          <path d="M32 27 C28 18 33 7 45 8 C39 13 37 19 36 25 C35 27 33 27 32 27 Z"/>
+          <g transform="rotate(120 32 32)"><path d="M32 27 C28 18 33 7 45 8 C39 13 37 19 36 25 C35 27 33 27 32 27 Z"/></g>
+          <g transform="rotate(240 32 32)"><path d="M32 27 C28 18 33 7 45 8 C39 13 37 19 36 25 C35 27 33 27 32 27 Z"/></g>
+          <path fill-rule="evenodd" fill="#ff463a" d="M25.6 32 a6.4 6.4 0 1 0 12.8 0 a6.4 6.4 0 1 0 -12.8 0 Z M34.6 32 a2.6 2.6 0 1 0 -5.2 0 a2.6 2.6 0 1 0 5.2 0 Z"/>
+        </svg>
+        <p class="media-note">your image · SVG · chart here</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LAYOUT: full — a wide band -->
+  <section class="slide slide--full" aria-label="Full-width layout">
+    <div class="wrap">
+      <p class="kicker">slide--full</p>
+      <h2>A wide band — for a big visual, or one large line.</h2>
+      <p class="sub">Wider than the reading column. Drop in a diagram or a full-width image (<span class="tok">&lt;img style="width:100%"&gt;</span>), or just let a single bold statement breathe.</p>
+    </div>
+  </section>
+
+  <!-- LAYOUT: full-bleed photo with caption overlay -->
+  <section class="slide slide--photo" aria-label="Full-bleed photo layout">
+    <div class="photo-placeholder"></div>
+      <!-- Replace this <div> with <img src="…" alt="…"> for real use -->
+    <div class="caption">
+      <p class="kicker">slide--photo</p>
+      <h2>Full-bleed image, caption overlay.</h2>
+      <p class="sub">A real <span class="tok">&lt;img&gt;</span> fills the slide; this overlay sits bottom-left with a red accent line and blurred glass. <em>Omit <span class="tok">.caption</span> for a silent visual.</em></p>
+    </div>
+  </section>
+
+  <!-- PRIMITIVE: code/config block (works inside any .wrap) -->
+  <section class="slide" aria-label="Code-block primitive">
+    <div class="wrap">
+      <p class="kicker">primitive · &lt;pre&gt;</p>
+      <h2>A code block, for configs or snippets.</h2>
+      <p class="sub">Subtle surface, hairline border, monospace — fits the dark void without shouting. Scrolls horizontally on overflow.</p>
+      <pre><code>npm ci
+npm run build
+# drop dist/ into the mounted NAS web folder</code></pre>
+    </div>
+  </section>
+
+  <!-- LAYOUT: statement — closing -->
+  <section class="slide end" aria-label="Make your own">
+    <div class="wrap">
+      <p class="kicker">Make your own</p>
+      <h2>Replace the sections. Keep the rest.</h2>
+      <p class="sub">Copy this file's <span class="tok">&lt;style&gt;</span> + <span class="tok">&lt;script&gt;</span> into any deck; add or remove <span class="tok">&lt;section class="slide …"&gt;</span> blocks. Five layouts: <em>title · statement · split · full · photo</em> — plus <span class="tok">&lt;pre&gt;</span> for code. Dark void, Swiss-red accent, system fonts; the <span class="tok">?preview</span> mode drives the inline cycling.</p>
+    </div>
+  </section>
+
+</div>
+
+<div class="counter" id="counter" aria-hidden="true">1 / 7</div>
+<div class="hint" id="hint" aria-hidden="true">scroll, or press &darr;</div>
+
+<script>
+(function(){
+  var deck=document.getElementById('deck');
+  var slides=[].slice.call(deck.querySelectorAll('.slide'));
+  var counter=document.getElementById('counter');
+  var progress=document.getElementById('progress');
+  var hint=document.getElementById('hint');
+  var current=0;
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        var i=slides.indexOf(e.target);
+        if(i>-1){ current=i; counter.textContent=(i+1)+' / '+slides.length;
+          progress.style.width=((i)/(slides.length-1)*100)+'%';
+          if(i>0){ hint.style.opacity='0'; } }
+      }
+    });
+  },{root:deck,threshold:0.6});
+  slides.forEach(function(s){io.observe(s);});
+  function go(n){ n=Math.max(0,Math.min(slides.length-1,n)); slides[n].scrollIntoView({behavior:'smooth',block:'center'}); }
+  deck.addEventListener('keydown',function(ev){
+    var k=ev.key;
+    if(k==='ArrowDown'||k==='PageDown'||k===' '||k==='Spacebar'){ev.preventDefault();go(current+1);}
+    else if(k==='ArrowUp'||k==='PageUp'){ev.preventDefault();go(current-1);}
+    else if(k==='Home'){ev.preventDefault();go(0);}
+    else if(k==='End'){ev.preventDefault();go(slides.length-1);}
+  });
+  // preview mode: auto-cycle when embedded; parent drives play/pause by visibility
+  var isPreview=/(?:[?&])preview\b/.test(location.search);
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var timer=null;
+  function startAuto(){ if(timer||reduce) return; timer=setInterval(function(){ go((current+1)%slides.length); },3800); }
+  function stopAuto(){ if(timer){clearInterval(timer); timer=null;} }
+  if(isPreview){
+    document.body.classList.add('preview'); startAuto();
+    window.addEventListener('message',function(ev){
+      var cmd=ev.data&&ev.data.skybeastDeck;
+      if(cmd==='pause') stopAuto(); else if(cmd==='play') startAuto();
+    });
+  } else { deck.focus(); }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<!--
+  SkyBeast slide-deck SVG PRIMITIVE KIT (reference + gallery).
+
+  A small, in-theme set of inline-SVG shapes for slide graphics — copy a block
+  into a deck (slide_deck.html) and it inherits the deck theme automatically,
+  because every fill/stroke uses the deck's CSS custom properties
+  (--ink/--soft/--accent/--tok/--line). Self-contained: open it to see every
+  primitive rendered in-theme; it doubles as the visual documentation.
+
+  HOW TO USE
+    1. Open this file in a browser to browse the primitives in-theme.
+    2. Copy the <svg>…</svg> of the one whose SHAPE fits your point.
+    3. Paste it into a slide's media slot — usually:
+         <section class="slide slide--split">
+           <div class="col"><div class="wrap"> …your text… </div></div>
+           <div class="col col--media"><div class="wrap">  PASTE SVG HERE  </div></div>
+         </section>
+       or inside a .slide--full .wrap for a wide diagram.
+    4. Re-label the text inside the SVG; recolor by swapping a fill from
+       var(--soft) → var(--accent) to emphasize one element.
+
+  THE COLOUR CONTRACT (so pasted shapes match the deck)
+    structure / boxes / lines  → var(--soft) or var(--tok) (stroke), var(--line) (fills/dividers)
+    text labels                → var(--ink) (primary), var(--soft) (secondary)
+    the ONE thing to emphasize → var(--accent)  (Swiss red — use sparingly, ~one per graphic)
+    Sizing: the deck caps .col--media svg at max-width 22rem / max-height 58vh,
+    so author to a ~viewBox 0 0 240 160 (landscape) and let it scale.
+
+  INVENT FREELY. This kit is a starting set, not a closed list. When no shape
+  fits, author a new one in the SAME IDIOM — viewBox-based, var(--…) fills,
+  one accent, a short label — and (optionally) add it back here so the kit grows.
+  Decorative-only shapes don't earn their place; a graphic should carry a point
+  or reinforce the text (two routes to the same idea), not fill space.
+
+  OTHER GRAPHICS. Images, charts, and R-generated output also belong in decks —
+  see .claude/commands/deck.md (the external-graphics route): embed via
+  slide--split / slide--full / slide--photo; for an offline-portable single-file
+  deck, convert R-PDF output to PNG or SVG (ggsave(*.svg) is ideal) and reference
+  it relatively or inline as a data-URI; annotate with the callout primitive
+  below, a slide--photo .caption overlay, or by pre-marking the image.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SkyBeast deck — SVG primitive kit</title>
+<style>
+  :root{
+    --bg:#0a0c0f; --ink:#eef2f5; --soft:#98a0aa; --line:rgba(195,200,207,.16);
+    --accent:#ff463a; --tok:#c3c8cf;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  body{background:var(--bg); color:var(--ink); padding:6vh 5vw;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased; line-height:1.5}
+  h1{font-size:clamp(1.8rem,4vw,2.8rem); letter-spacing:-.02em; font-weight:680}
+  .lede{color:var(--soft); margin-top:.8rem; max-width:40rem; font-size:1.05rem}
+  .kicker{font-size:.82rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:600}
+  .kicker::before{content:"▸ "}
+  .kit-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(20rem,1fr)); gap:1.4rem; margin-top:3rem}
+  .kit-cell{border:1px solid var(--line); border-radius:8px; padding:1.4rem; background:rgba(195,200,207,.03);
+    display:flex; flex-direction:column; gap:1rem}
+  .kit-cell svg{width:100%; max-width:20rem; height:auto; margin-inline:auto}
+  .kit-name{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; color:var(--tok); font-size:.92rem; font-weight:600}
+  .kit-use{color:var(--soft); font-size:.86rem}
+  /* shared SVG text styles */
+  .s-lbl{fill:var(--ink); font:600 11px system-ui,sans-serif}
+  .s-sub{fill:var(--soft); font:500 9px system-ui,sans-serif}
+  .s-big{fill:var(--ink); font:700 38px system-ui,sans-serif}
+  .s-box{fill:rgba(195,200,207,.06); stroke:var(--soft); stroke-width:1.4}
+  .s-box-acc{fill:rgba(255,70,58,.12); stroke:var(--accent); stroke-width:1.6}
+  .s-line{stroke:var(--soft); stroke-width:1.6; fill:none}
+  .s-acc{fill:var(--accent)}
+</style>
+</head>
+<body>
+  <p class="kicker">deck svg kit</p>
+  <h1>In-theme primitives.</h1>
+  <p class="lede">Copy a shape into a <code>.col--media</code> (split) or <code>.slide--full</code>. Fills use the deck's CSS vars, so they match the theme on paste. Emphasize one element with <code>var(--accent)</code>; invent new shapes in the same idiom.</p>
+
+  <div class="kit-grid">
+
+    <!-- 1 · flow-arrows: A → B → C pipeline -->
+    <div class="kit-cell">
+      <svg viewBox="0 0 240 80" role="img" aria-label="Three-stage flow">
+        <defs><marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 Z" class="s-acc"/></marker></defs>
+        <rect x="6"  y="26" width="56" height="30" rx="5" class="s-box"/>
+        <rect x="92" y="26" width="56" height="30" rx="5" class="s-box"/>
+        <rect x="178" y="26" width="56" height="30" rx="5" class="s-box-acc"/>
+        <text x="34"  y="45" text-anchor="middle" class="s-lbl">research</text>
+        <text x="120" y="45" text-anchor="middle" class="s-lbl">place</text>
+        <text x="206" y="45" text-anchor="middle" class="s-lbl">ground</text>
+        <line x1="64" y1="41" x2="88" y2="41" class="s-line" marker-end="url(#ah)"/>
+        <line x1="150" y1="41" x2="174" y2="41" class="s-line" marker-end="url(#ah)"/>
+      </svg>
+      <div class="kit-name">flow-arrows</div>
+      <div class="kit-use">A → B → C. A pipeline, a sequence, a seam. Accent the destination.</div>
+    </div>
+
+    <!-- 2 · stack / layers -->
+    <div class="kit-cell">
+      <svg viewBox="0 0 240 130" role="img" aria-label="Layered stack">
+        <rect x="50" y="14"  width="140" height="28" rx="5" class="s-box-acc"/>
+        <rect x="50" y="50"  width="140" height="28" rx="5" class="s-box"/>
+        <rect x="50" y="86"  width="140" height="28" rx="5" class="s-box"/>
+        <text x="120" y="32"  text-anchor="middle" class="s-lbl">CLAUDE.md</text>
+        <text x="120" y="68"  text-anchor="middle" class="s-lbl">guidance/</text>
+        <text x="120" y="104" text-anchor="middle" class="s-lbl">background/</text>
+      </svg>
+      <div class="kit-name">stack</div>
+      <div class="kit-use">Layers, precedence, a tier model. Top layer accented = the keystone.</div>
+    </div>
+
+    <!-- 3 · before / after -->
+    <div class="kit-cell">
+      <svg viewBox="0 0 240 96" role="img" aria-label="Before and after">
+        <defs><marker id="ah2" markerWidth="9" markerHeight="9" refX="6" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 Z" class="s-acc"/></marker></defs>
+        <rect x="8"  y="28" width="84" height="42" rx="6" class="s-box"/>
+        <rect x="148" y="28" width="84" height="42" rx="6" class="s-box-acc"/>
+        <text x="50"  y="46" text-anchor="middle" class="s-lbl">before</text>
+        <text x="50"  y="60" text-anchor="middle" class="s-sub">hand-orchestrated</text>
+        <text x="190" y="46" text-anchor="middle" class="s-lbl">after</text>
+        <text x="190" y="60" text-anchor="middle" class="s-sub">one command</text>
+        <line x1="98" y1="49" x2="142" y2="49" class="s-line" marker-end="url(#ah2)"/>
+      </svg>
+      <div class="kit-name">before-after</div>
+      <div class="kit-use">A change, a migration, a fix. Old muted, new accented.</div>
+    </div>
+
+    <!-- 4 · big-stat callout -->
+    <div class="kit-cell">
+      <svg viewBox="0 0 240 120" role="img" aria-label="Headline statistic">
+        <text x="120" y="64" text-anchor="middle" class="s-big" style="fill:var(--accent)">30%</text>
+        <text x="120" y="90" text-anchor="middle" class="s-lbl">more compelling</text>
+        <text x="120" y="106" text-anchor="middle" class="s-sub">with visual variety</text>
+      </svg>
+      <div class="kit-name">big-stat</div>
+      <div class="kit-use">One number that should land. The figure in accent; label beneath.</div>
+    </div>
+
+    <!-- 5 · node-graph -->
+    <div class="kit-cell">
+      <svg viewBox="0 0 240 130" role="img" aria-label="Connected nodes">
+        <line x1="40" y1="40" x2="120" y2="95" class="s-line"/>
+        <line x1="200" y1="40" x2="120" y2="95" class="s-line"/>
+        <line x1="40" y1="40" x2="200" y2="40" class="s-line"/>
+        <circle cx="40"  cy="40" r="15" class="s-box"/>
+        <circle cx="200" cy="40" r="15" class="s-box"/>
+        <circle cx="120" cy="95" r="17" class="s-box-acc"/>
+        <text x="40"  y="44" text-anchor="middle" class="s-sub">src</text>
+        <text x="200" y="44" text-anchor="middle" class="s-sub">data</text>
+        <text x="120" y="99" text-anchor="middle" class="s-sub">brief</text>
+      </svg>
+      <div class="kit-name">node-graph</div>
+      <div class="kit-use">Relationships, a small network, a hub. Accent the hub.</div>
+    </div>
+
+    <!-- 6 · checklist -->
+    <div class="kit-cell">
+      <svg viewBox="0 0 240 120" role="img" aria-label="Checklist">
+        <g class="s-acc"><path d="M14 24 l5 5 l9 -11" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></g>
+        <g class="s-acc"><path d="M14 56 l5 5 l9 -11" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></g>
+        <g class="s-acc"><path d="M14 88 l5 5 l9 -11" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></g>
+        <text x="40" y="28" class="s-lbl">brief → decide</text>
+        <text x="40" y="60" class="s-lbl">version bump</text>
+        <text x="40" y="92" class="s-lbl">applied to app/</text>
+      </svg>
+      <div class="kit-name">checklist</div>
+      <div class="kit-use">Done items, a satisfied set of criteria. Accent the ticks.</div>
+    </div>
+
+    <!-- 7 · comparison bars -->
+    <div class="kit-cell">
+      <svg viewBox="0 0 240 130" role="img" aria-label="Comparison bars">
+        <line x1="20" y1="108" x2="228" y2="108" class="s-line"/>
+        <rect x="40"  y="78"  width="36" height="30" class="s-box"/>
+        <rect x="102" y="52"  width="36" height="56" class="s-box"/>
+        <rect x="164" y="24"  width="36" height="84" class="s-box-acc"/>
+        <text x="58"  y="122" text-anchor="middle" class="s-sub">v1</text>
+        <text x="120" y="122" text-anchor="middle" class="s-sub">v2</text>
+        <text x="182" y="122" text-anchor="middle" class="s-sub">now</text>
+      </svg>
+      <div class="kit-name">bars</div>
+      <div class="kit-use">Growth, a simple comparison, a trend. Tallest/latest accented.</div>
+    </div>
+
+    <!-- 8 · cycle / loop -->
+    <div class="kit-cell">
+      <svg viewBox="0 0 240 130" role="img" aria-label="Cycle">
+        <defs><marker id="ah3" markerWidth="9" markerHeight="9" refX="4" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 Z" class="s-acc"/></marker></defs>
+        <path d="M120 28 A37 37 0 1 1 83 65" class="s-line" marker-end="url(#ah3)"/>
+        <circle cx="120" cy="65" r="6" class="s-acc"/>
+        <text x="120" y="118" text-anchor="middle" class="s-sub">capture → consume → repeat</text>
+      </svg>
+      <div class="kit-name">cycle</div>
+      <div class="kit-use">A loop, an iteration, a feedback cadence. Arrowhead closes it.</div>
+    </div>
+
+    <!-- 9 · funnel / triage -->
+    <div class="kit-cell">
+      <svg viewBox="0 0 240 130" role="img" aria-label="Funnel">
+        <polygon points="30,20 210,20 168,52 72,52" class="s-box"/>
+        <polygon points="72,58 168,58 142,90 98,90" class="s-box"/>
+        <polygon points="98,96 142,96 126,122 114,122" class="s-box-acc"/>
+        <text x="120" y="40"  text-anchor="middle" class="s-sub">all sources</text>
+        <text x="120" y="78"  text-anchor="middle" class="s-sub">in scope</text>
+        <text x="120" y="115" text-anchor="middle" class="s-sub">distilled</text>
+      </svg>
+      <div class="kit-name">funnel</div>
+      <div class="kit-use">Triage, narrowing, curation. The output tier accented.</div>
+    </div>
+
+    <!-- 10 · annotation callout (for marking up an image/region) -->
+    <div class="kit-cell">
+      <svg viewBox="0 0 240 130" role="img" aria-label="Annotation callout">
+        <rect x="10" y="14" width="150" height="100" rx="6" class="s-box"/>
+        <text x="85" y="68" text-anchor="middle" class="s-sub">image / chart</text>
+        <circle cx="120" cy="44" r="13" fill="none" stroke="var(--accent)" stroke-width="2"/>
+        <line x1="133" y1="44" x2="196" y2="30" class="s-line" stroke="var(--accent)"/>
+        <rect x="168" y="18" width="64" height="26" rx="4" class="s-box-acc"/>
+        <text x="200" y="35" text-anchor="middle" class="s-sub" style="fill:var(--ink)">note</text>
+      </svg>
+      <div class="kit-name">annotation-callout</div>
+      <div class="kit-use">Overlay on an image to mark a region. Ring + leader + label, all accent.</div>
+    </div>
+
+  </div>
+</body>
+</html>
